@@ -1,17 +1,36 @@
-import React, { FC } from "react";
+import React, { FC, MouseEvent, useRef } from "react";
 
 interface Modal {
-  onClose: () => void;
+  closeModal: () => void;
   showModal: boolean;
   children: React.ReactNode;
+  closeWhenClickOutside?: boolean;
 }
 
-export const Modal: FC<Modal> = ({ onClose, children, showModal }) => {
+export const Modal: FC<Modal> = ({
+  closeModal,
+  children,
+  showModal,
+  closeWhenClickOutside = true
+}) => {
+  const overlayRef = useRef(null);
+
+  const onClickOverlay = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target === overlayRef.current && closeWhenClickOutside) {
+      closeModal();
+    }
+    event.preventDefault();
+  };
+
   return (
     <>
       {showModal ? (
         <>
-          <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <div
+            onClick={onClickOverlay}
+            ref={overlayRef}
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+          >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
               <div className="bg-gray-700 border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
@@ -20,7 +39,7 @@ export const Modal: FC<Modal> = ({ onClose, children, showModal }) => {
                   <h3 className="text-3xl font-semibold">Modal Title</h3>
                   <button
                     className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => onClose()}
+                    onClick={() => closeModal()}
                   >
                     <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
                       ×
