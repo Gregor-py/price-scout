@@ -1,0 +1,6 @@
+-modal ui
+-create product item
+-display product cards
+-use modal to show all info about product info
+-firebase
+-authentication with firebase
