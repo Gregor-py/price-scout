@@ -36,7 +36,6 @@ export const Modal: FC<Modal> = ({
             )}
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
               <div className="bg-gray-700 border-0 rounded-lg shadow-lg relative flex flex-col w-full outline-none focus:outline-none">
                 {children}
               </div>

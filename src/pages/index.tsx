@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { AuthModal } from "@/components/modals/AuthModal";
+import { AuthModal } from "@/components/modals/AuthModal/AuthModal";
 
 export default function Home() {
   return (
